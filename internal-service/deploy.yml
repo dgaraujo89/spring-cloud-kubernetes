@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1 
+kind: Deployment
+metadata:
+  name: internal-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: internal-service
+    spec:
+      containers:
+        - name: internal-service
+          image: diegogomesaraujo/spring-cloud-kubernetes-internal-service
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: internal-service
+spec:
+  selector:
+    app: internal-service
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: ClusterIP

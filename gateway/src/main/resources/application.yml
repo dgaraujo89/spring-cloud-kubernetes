@@ -1,3 +1,8 @@
 
 server:
   port: ${SERVER_PORT:8080}
+  
+internal-service.default.svc.cluster.local:
+  ribbon:
+    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
