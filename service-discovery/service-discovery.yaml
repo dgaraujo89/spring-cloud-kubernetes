@@ -18,7 +18,7 @@ spec:
         image: diegogomesaraujo/service-discovery
         ports:
         - containerPort: 8761
-          name: web
+          name: http
         env:
         - name: DEFAULT_ZONE
           value: "http://service-discovery-0.service-discovery.default.svc.cluster.local:8761/eureka/,http://service-discovery-1.service-discovery.default.svc.cluster.local:8761/eureka/,http://service-discovery-2.service-discovery.default.svc.cluster.local:8761/eureka/"
@@ -32,7 +32,7 @@ metadata:
 spec:
   ports:
   - port: 8761
-    name: web
+    name: http
   type: NodePort
   selector:
     app: service-discovery

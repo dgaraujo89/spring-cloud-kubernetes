@@ -10,7 +10,7 @@ spring:
     config:
       server:
         git:
-          uri: ${GIR_REPO_URL}
-          username: ${GIT_USER}
-          password: ${GIT_PASSWORD}
+          uri: ${GIT_REPO_URL}
+          username: ${GIT_REPO_USER}
+          password: ${GIT_REPO_PASSWORD}
             

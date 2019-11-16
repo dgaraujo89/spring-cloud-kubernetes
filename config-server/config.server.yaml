@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server
+  labels:
+    app: config-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: config-server
+  template:
+    metadata:
+      labels:
+        app: config-server
+    spec:
+      containers:
+      - name: config-server
+        image: diegogomesaraujo/config-server
+        ports:
+        - containerPort: 8888
+          name: http
+        env:
+        - name: GIT_REPO_URL
+          valueFrom:
+            configMapKeyRef:
+              name: spring-cloud-config
+              key: git.url
+        - name: GIT_REPO_USER
+          valueFrom:
+            configMapKeyRef:
+              name: spring-cloud-config
+              key: git.user
+        - name: GIT_REPO_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: spring-cloud-config
+              key: git.password
+          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server
+  labels:
+    app: config-server
+spec:
+  ports:
+  - port: 8888
+    name: http
+  type: NodePort
+  selector:
+    app: config-server
